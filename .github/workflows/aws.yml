@@ -13,13 +13,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: executing remote ssh commands using password
-      uses: ./
-      with:
-        host: ${{ secrets.HOST_AWS_EZOPS_TEST_GUILHERME }}
-        username: ${{ secrets.USER_AWS_EZOPS_TEST_GUILHERME }}
-        key: ${{ secrets.SSH_AWS_EZOPS_TEST_GUILHERME }}
-        port: ${{ secrets.PORT }}
-        script: |
-          whoami
-          pwd
-          ls -lah
+        uses: ./
+        with:
+          host: ${{ secrets.HOST_AWS_EZOPS_TEST_GUILHERME }}
+          username: ${{ secrets.USER_AWS_EZOPS_TEST_GUILHERME }}
+          key: ${{ secrets.SSH_AWS_EZOPS_TEST_GUILHERME }}
+          port: ${{ secrets.PORT }}
+          script: |
+            whoami
+            pwd
+            ls -lah
