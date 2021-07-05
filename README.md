@@ -13,6 +13,12 @@ Aplicação base: [Simple Chat with NodeJs + Express + Mongoose + Socket.io](htt
 
 #### run app (option 1)
     * docker-compose up
+<br>
 
 #### run app (option 2)
     * docker run -itd --name=ezops-test-guilherme_web_1 -p=3000:3000 ezops-test-guilherme_web:latest
+<br>
+
+
+### CI/CD
+https://medium.com/thelorry-product-tech-data/amazon-ec2-deployment-complete-ci-cd-pipeline-using-github-actions-and-aws-codedeploy-8a477123ff7e

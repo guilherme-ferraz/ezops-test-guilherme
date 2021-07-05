@@ -1,0 +1,14 @@
+version: 0.0
+os: linux
+files:
+ - source: .
+   destination: /home/ubuntu/ezops-test-guilherme
+hooks:
+  AfterInstall:
+   - location: scripts/afterInstall.sh
+     timeout: 300
+     runas: root
+  ApplicationStart:
+   - location: scripts/startServer.sh
+     timeout: 300
+     runas: root
