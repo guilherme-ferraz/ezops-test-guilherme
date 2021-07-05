@@ -24,3 +24,12 @@ jobs:
           whoami
           pwd
           ls -lah
+           # Step 2
+      - name: Create CodeDeploy Deployment
+        id: deploy
+        run: |
+          aws deploy create-deployment \
+            --application-name application-name \
+            --deployment-group-name AppDeploymentGroupName \
+            --deployment-config-name CodeDeployDefault.OneAtATime \
+            --github-location repository=${{ github.repository }},commitId=${{ github.sha }}
