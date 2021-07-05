@@ -1,0 +1,22 @@
+name: Deploy EC2
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [closed]
+jobs:
+  merge-PR:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install SSH key
+        uses: guilherme-ferraz/ssh-key-action@v2
+        with:
+          key: ${{ secrets.SSH_AWS_EZOPS_TEST_GUILHERME }}
+          name: id_rsa
+          known_hosts: ${{ secrets.KNOWN_HOSTS_AWS_EZOPS_TEST_GUILHERME }}
+      - name: rsync over ssh
+        run: ./scripts/deploy_to_aws.sh
