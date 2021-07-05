@@ -12,14 +12,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: executing remote ssh commands using password
-        uses: ./
+      # Step 1
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
         with:
-          host: ${{ secrets.HOST_AWS_EZOPS_TEST_GUILHERME }}
-          username: ${{ secrets.USER_AWS_EZOPS_TEST_GUILHERME }}
-          key: ${{ secrets.SSH_AWS_EZOPS_TEST_GUILHERME }}
-          port: ${{ secrets.PORT }}
-          script: |
-            whoami
-            pwd
-            ls -lah
+          aws-access-key-id:${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key:${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region:sa-east-1c
+      - name: executing remote ssh commands using password
+        id: test
+        run: |
+          whoami
+          pwd
+          ls -lah
