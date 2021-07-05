@@ -6,8 +6,8 @@ on:
   pull_request:
     types: [closed]
 jobs:
-  merge-PR:
-    if: github.event.pull_request.merged == true
+  cd:
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
