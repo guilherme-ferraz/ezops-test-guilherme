@@ -4,6 +4,7 @@ var app = express();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mongoose = require('mongoose');
+require('dotenv/config');
 
 app.use(express.static(__dirname));
 app.use(bodyParser.urlencoded({
@@ -18,7 +19,7 @@ var Message = mongoose.model('Message',{
 })
 
 //db string connection
-var dbUrl = 'mongodb+srv://ezops-test:MABAwtU8fEt5a6R@cluster0.t6k2n.mongodb.net/simple-chat?retryWrites=true&w=majority'
+var dbUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`
 
 
 //routes
