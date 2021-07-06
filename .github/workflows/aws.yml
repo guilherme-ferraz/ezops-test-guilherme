@@ -15,5 +15,8 @@ jobs:
       - name: Create CodeDeploy Deployment
         id: deploy
         run: |
-          chmod +x ./scripts/deploy_to_aws.sh && \
-          ./scripts/deploy_to_aws.sh
+          chmod +x ./scripts/workflowAWS.sh && \
+          ./scripts/workflowAWS.sh \
+          cert='${{ secrets.AWS_SSH_PEM }}' \
+          user='${{ secrets.AWS_USER }}' \
+          host='${{ secrets.AWS_HOST }}'
