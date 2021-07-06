@@ -22,10 +22,11 @@ for ARGUMENT in "$@"; do
 done
 
 #config cert and ssh connection
-echo "$cert" > cert.pem
-chmod 400 cert.pem
-mkdir -p ~/.ssh/
-chmod 700 ~/.ssh/
+echo "$cert" > cert.pem && chmod 400 cert.pem
+echo "user: $user"
+echo "host: $host"
+echo "cert: $cert"
+mkdir -p ~/.ssh/ && chmod 700 ~/.ssh/
 ssh-keyscan -H "$host" >> ~/.ssh/known_hosts
 
 ssh -i 'cert.pem' $user@$host 'if [ -d "/home/ubuntu/ezops-test-guilherme/" ];then \
