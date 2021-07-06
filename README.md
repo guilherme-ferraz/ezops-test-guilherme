@@ -22,3 +22,10 @@ Aplicação base: [Simple Chat with NodeJs + Express + Mongoose + Socket.io](htt
 
 ### CI/CD
 https://medium.com/thelorry-product-tech-data/amazon-ec2-deployment-complete-ci-cd-pipeline-using-github-actions-and-aws-codedeploy-8a477123ff7e
+
+## TODO
+
+    * adicionar .pem nos secrets do github
+    * criar um script para acesso remoto
+        - nesse script, pegar o .pem e executar a conexão remota
+        - uma vez conectado, chamar job/script para atualizar o servidor
