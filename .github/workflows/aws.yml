@@ -29,5 +29,6 @@ jobs:
         id: deploy
         run: |
           echo "${{ secrets.AWS_SSH_PEM }}" > cert.pem && \
+          chmod 400 cert.pem && \
           cat cert.pem && \
           ssh -i 'cert.pem' ubuntu@ec2-54-232-137-215.sa-east-1.compute.amazonaws.com 'echo "ola" > test.remote && pwd'
