@@ -7,8 +7,8 @@ for ARGUMENT in "$@"; do
     VALUE=$(echo $ARGUMENT | cut -f2 -d=)   
 
     case "$KEY" in
-        path)           path=$VALUE ;;
-        environment)    environment=$VALUE ;;
+        path)     path=$VALUE ;;
+        env)      env=$VALUE ;;
         *)
     esac
 done
@@ -20,7 +20,7 @@ else
     exit 1
 fi
 
-cp $environment $path.env
+cp $env $path.env
 
 sudo supervisorctl reread
 sudo supervisorctl update ezops 
