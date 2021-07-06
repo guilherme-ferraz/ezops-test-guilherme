@@ -24,7 +24,7 @@ done
 #config cert and ssh connection
 echo "$cert" > cert.pem && chmod 400 cert.pem
 echo "user: $user"
-echo "host: $host"
+echo "host: $AWS_HOST"
 echo "cert: $cert"
 mkdir -p ~/.ssh/ && chmod 700 ~/.ssh/
 ssh-keyscan -H "$host" >> ~/.ssh/known_hosts
