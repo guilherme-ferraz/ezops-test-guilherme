@@ -14,9 +14,13 @@ jobs:
         uses: actions/checkout@v2
       - name: Create CodeDeploy Deployment
         id: deploy
+        env:
+          AWS_USER: ${{ secrets.AWS_USER }}
+          AWS_HOST: ${{ secrets.AWS_HOST }}
+          AWS_SSH_PEM: ${{ secrets.AWS_SSH_PEM }}
         run: |
           chmod +x ./scripts/workflowAWS.sh && \
           ./scripts/workflowAWS.sh \
-          cert='${{ secrets.AWS_SSH_PEM }}' \
-          user='${{ secrets.AWS_USER }}' \
-          host='${{ secrets.AWS_HOST }}'
+          cert='${{ env.AWS_SSH_PEM }}' \
+          user='${{ env.AWS_USER }}' \
+          host='${{ env.AWS_HOST }}'
