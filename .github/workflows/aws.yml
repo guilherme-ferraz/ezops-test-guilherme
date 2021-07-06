@@ -18,7 +18,8 @@ jobs:
         env:
           parentPath: '/home/ubuntu/'
           app: 'ezops-test-guilherme'
-          fullPath: '${{ env.parentPath }}${{ env.app }}'
+          fullPath: '/home/ubuntu/ezops-test-guilherme/'
+          scriptPath: '/home/ubuntu/ezops-test-guilherme/scripts/'
           gitProject: git@github.com:guilherme-ferraz/ezops-test-guilherme.git
         run: |
           echo "${{ secrets.AWS_SSH_PEM }}" > cert.pem && \
@@ -26,12 +27,12 @@ jobs:
           mkdir -p ~/.ssh/ && \
           chmod 700 ~/.ssh/ &&
           ssh-keyscan -H "${{ secrets.AWS_HOST }}" >> ~/.ssh/known_hosts && \
-          ssh -i 'cert.pem' ${{ secrets.AWS_USER }}@${{ secrets.AWS_HOST }} \
+          ssh -i 'cert.pem' ubuntu@${{ secrets.AWS_HOST }} \
           'if [ -d "${{ env.fullPath }}" ];then \
           cd ${{ env.fullPath }} && \
           git pull && \
-          cd scripts && \
+          cd ${{ env.scriptPath }} && \
           rollingUpdate.sh; else; cd ${{ env.parentPath }} && \
           git clone ${{ env.gitProject }} && \
-          cd ${{ env.app }}/scripts/ && \
+          cd ${{ env.scriptPath }} && \
           firstDeploy.sh; fi'
