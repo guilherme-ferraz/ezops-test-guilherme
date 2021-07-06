@@ -37,4 +37,4 @@ jobs:
           cd ${{ env.parentPath }} && \
           git clone ${{ env.gitProject }} && \
           cd ${{ env.scriptPath }} && \
-          firstDeploy.sh; fi"
+          firstDeploy.sh path=${{ env.fullPath }}; fi"
