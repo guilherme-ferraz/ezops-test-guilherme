@@ -1,9 +1,9 @@
 #!/bin/bash
 
-sudo apt-get update
-sudo apt-get install -y curl 
+# sudo apt-get update
+# sudo apt-get install -y curl 
 
-curl ifconfig.me 
+# curl ifconfig.me 
 
 #defaults
 action='firstDeploy'
