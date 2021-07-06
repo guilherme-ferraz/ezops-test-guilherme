@@ -16,9 +16,9 @@ jobs:
         id: deploy
         shell: bash
         env:
-          parentPath: /home/ubuntu/
-          app: ezops-test-guilherme
-          fullPath: ${{ env.parentPath }}${{ env.app }}
+          parentPath: '/home/ubuntu/'
+          app: 'ezops-test-guilherme'
+          fullPath: '${{ env.parentPath }}${{ env.app }}'
           gitProject: git@github.com:guilherme-ferraz/ezops-test-guilherme.git
         run: |
           echo "${{ secrets.AWS_SSH_PEM }}" > cert.pem && \
