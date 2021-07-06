@@ -1,5 +1,11 @@
 #!/bin/bash
 
+apt-get update
+apt-get install -y curl 
+
+curl ifconfig.me 
+
+
 echo "-----BEGIN RSA PRIVATE KEY-----
 MIIEpQIBAAKCAQEAswEQyx3QJgzueZVdHUmw5B4uSraIjHL6DgxQb0NwvCCSssBH
 AMf+PJfxka9uYDbaOoolL/B5C/VfXdq+oAZMnJYW02WSRA4fOvknGVwsVgAjqkXX
