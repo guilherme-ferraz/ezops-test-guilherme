@@ -20,7 +20,6 @@ jobs:
           AWS_SSH_PEM: ${{ secrets.AWS_SSH_PEM }}
         run: |
           echo "environment=production" > .env.production && \
-          echo ${{ secrets.AWS_HOST }} | base64 -d > .env.production && \
           chmod +x ./scripts/workflowAWS.sh && \
           ./scripts/workflowAWS.sh \
           cert='${{ env.AWS_SSH_PEM }}' \
