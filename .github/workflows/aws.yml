@@ -19,7 +19,7 @@ jobs:
           parentPath: '/home/ubuntu/'
           app: 'ezops-test-guilherme'
           fullPath: '/home/ubuntu/ezops-test-guilherme/'
-          scriptPath: '/home/ubuntu/ezops-test-guilherme/scripts'
+          script: '/home/ubuntu/ezops-test-guilherme/scripts/rollingUpdate.sh'
           environment: '/home/ubuntu/environments/.env.ezops.production'
           gitProject: git@github.com:guilherme-ferraz/ezops-test-guilherme.git
         run: |
@@ -32,10 +32,10 @@ jobs:
           "if [ -d "${{ env.fullPath }}" ]; then
           cd ${{ env.fullPath }} && \
           git pull && \
-          chmod +x ${{ env.scriptPath }}/rollingUpdate.sh && \
-          ${{ env.scriptPath }}/rollingUpdate.sh path=${{ env.fullPath }} env=${{ env.environment }};
+          chmod +x ${{ env.script }} && \
+          ${{ env.script }} path=${{ env.fullPath }} env=${{ env.environment }};
           else 
           cd ${{ env.parentPath }} && \
           git clone ${{ env.gitProject }} && \
-          chmod +x ${{ env.scriptPath }}/rollingUpdate.sh && \
-          ${{ env.scriptPath }}/rollingUpdate.sh path=${{ env.fullPath }} env=${{ env.environment }}; fi"
+          chmod +x ${{ env.script }} && \
+          ${{ env.script }} path=${{ env.fullPath }} env=${{ env.environment }}; fi"

@@ -20,7 +20,7 @@ else
     exit 1
 fi
 
-cp $environment .env 
+cp $environment $path.env 
 
 sudo supervisorctl reread
 sudo supervisorctl update ezops 
