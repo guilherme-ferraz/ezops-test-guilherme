@@ -15,12 +15,11 @@ jobs:
       - name: Create CodeDeploy Deployment
         id: deploy
         env:
-          AWS_USER: ubuntu
-          AWS_HOST: ${{ secrets.AWS_HOST }}
-          AWS_SSH_PEM: ${{ secrets.AWS_SSH_PEM }}
+          HOST: ${{ secrets.AWS_HOST }}
+        shell: bash
         run: |
           echo "environment=production" > .env.production && \
-          echo "$(echo ${{ secrets.AWS_HOST }} | base64 -d)" >> .env.production && \
+          echo "host=$HOST" >> .env.production && \
           chmod +x ./scripts/workflowAWS.sh && \
           ./scripts/workflowAWS.sh \
           cert='${{ env.AWS_SSH_PEM }}' \
