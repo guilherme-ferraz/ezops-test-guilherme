@@ -23,10 +23,6 @@ done
 
 #config cert and ssh connection
 echo "$cert" > cert.pem && chmod 400 cert.pem
-echo "user: $user"
-ls -lah
-cat .env.production
-echo "cert: $cert"
 mkdir -p ~/.ssh/ && chmod 700 ~/.ssh/
 ssh-keyscan -H "$host" >> ~/.ssh/known_hosts
 

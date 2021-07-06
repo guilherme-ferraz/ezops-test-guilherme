@@ -14,14 +14,24 @@ jobs:
         uses: actions/checkout@v2
       - name: Create CodeDeploy Deployment
         id: deploy
-        env:
-          HOST: ${{ secrets.AWS_HOST }}
         shell: bash
+        env:
+          parentPath: /home/ubuntu/
+          app: ezops-test-guilherme
+          fullPath: ${{ env.parentPath }}${{ env.app }}
+          gitProject: git@github.com:guilherme-ferraz/ezops-test-guilherme.git
         run: |
-          echo "environment=production" > .env.production && \
-          echo "host=$HOST" >> .env.production && \
-          chmod +x ./scripts/workflowAWS.sh && \
-          ./scripts/workflowAWS.sh \
-          cert='${{ env.AWS_SSH_PEM }}' \
-          user='${{ env.AWS_USER }}' \
-          host='${{ secrets.AWS_HOST }}'
+          echo "${{ secrets.AWS_SSH_PEM }}" > cert.pem && \
+          chmod 400 cert.pem && \
+          mkdir -p ~/.ssh/ && \
+          chmod 700 ~/.ssh/ &&
+          ssh-keyscan -H "${{ secrets.AWS_HOST }}" >> ~/.ssh/known_hosts && \
+          ssh -i 'cert.pem' ${{ secrets.AWS_USER }}@${{ secrets.AWS_HOST }} \
+          'if [ -d "${{ env.fullPath }}" ];then \
+          cd ${{ env.fullPath }} && \
+          git pull && \
+          cd scripts && \
+          rollingUpdate.sh; else; cd ${{ env.parentPath }} && \
+          git clone ${{ env.gitProject }} && \
+          cd ${{ env.app }}/scripts/ && \
+          firstDeploy.sh; fi'
