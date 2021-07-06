@@ -19,20 +19,22 @@ jobs:
           parentPath: '/home/ubuntu/'
           app: 'ezops-test-guilherme'
           fullPath: '/home/ubuntu/ezops-test-guilherme/'
-          scriptPath: '/home/ubuntu/ezops-test-guilherme/scripts/'
+          scriptPath: '/home/ubuntu/ezops-test-guilherme/scripts'
           gitProject: git@github.com:guilherme-ferraz/ezops-test-guilherme.git
         run: |
           echo "${{ secrets.AWS_SSH_PEM }}" > cert.pem && \
           chmod 400 cert.pem && \
           mkdir -p ~/.ssh/ && \
-          chmod 700 ~/.ssh/ &&
+          chmod 700 ~/.ssh/ && \
           ssh-keyscan -H "${{ secrets.AWS_HOST }}" >> ~/.ssh/known_hosts && \
           ssh -i 'cert.pem' ubuntu@${{ secrets.AWS_HOST }} \
-          'if [ -d "${{ env.fullPath }}" ];then \
+          "if [ -d "${{ env.fullPath }}" ]; then
           cd ${{ env.fullPath }} && \
           git pull && \
-          cd ${{ env.scriptPath }} && \
-          rollingUpdate.sh; else; cd ${{ env.parentPath }} && \
+          chmod +x ${{ env.scriptPath }}/rollingUpdate.sh && \
+          ${{ env.scriptPath }}/rollingUpdate.sh;
+          else 
+          cd ${{ env.parentPath }} && \
           git clone ${{ env.gitProject }} && \
           cd ${{ env.scriptPath }} && \
-          firstDeploy.sh; fi'
+          firstDeploy.sh; fi"
