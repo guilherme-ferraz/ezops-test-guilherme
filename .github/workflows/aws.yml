@@ -17,5 +17,5 @@ jobs:
         run: |
           echo "${{ secrets.AWS_SSH_PEM }}" > cert.pem && \
           chmod 400 cert.pem && \
-          ssh-keyscan -H "${{ secrets.AWS_KNOWN_HOSTS" >> ~/.ssh/known_hosts && \
+          ssh-keyscan -H "${{ secrets.AWS_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts && \
           ssh -i 'cert.pem' ${{ secrets.AWS_USER }}@${{ secrets.AWS_HOST }} 'echo "ola" > test.remote && pwd'
