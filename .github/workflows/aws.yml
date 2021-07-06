@@ -15,4 +15,5 @@ jobs:
       - name: Create CodeDeploy Deployment
         id: deploy
         run: |
+          chmod +x ./scripts/deploy_to_aws.sh && \
           ./scripts/deploy_to_aws.sh
