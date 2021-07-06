@@ -20,6 +20,7 @@ jobs:
           app: 'ezops-test-guilherme'
           fullPath: '/home/ubuntu/ezops-test-guilherme/'
           scriptPath: '/home/ubuntu/ezops-test-guilherme/scripts'
+          environment: '/home/ubuntu/environments/.env.ezops.production'
           gitProject: git@github.com:guilherme-ferraz/ezops-test-guilherme.git
         run: |
           echo "${{ secrets.AWS_SSH_PEM }}" > cert.pem && \
@@ -32,9 +33,9 @@ jobs:
           cd ${{ env.fullPath }} && \
           git pull && \
           chmod +x ${{ env.scriptPath }}/rollingUpdate.sh && \
-          ${{ env.scriptPath }}/rollingUpdate.sh path=${{ env.fullPath }};
+          ${{ env.scriptPath }}/rollingUpdate.sh path=${{ env.fullPath }} env=${{ env.environment }};
           else 
           cd ${{ env.parentPath }} && \
           git clone ${{ env.gitProject }} && \
           chmod +x ${{ env.scriptPath }}/rollingUpdate.sh && \
-          ${{ env.scriptPath }}/rollingUpdate.sh path=${{ env.fullPath }}; fi"
+          ${{ env.scriptPath }}/rollingUpdate.sh path=${{ env.fullPath }} env=${{ env.environment }}; fi"
