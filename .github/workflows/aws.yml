@@ -31,6 +31,7 @@ jobs:
           ssh -i 'cert.pem' ubuntu@${{ secrets.AWS_HOST }} \
           "if [ -d "${{ env.fullPath }}" ]; then
           cd ${{ env.fullPath }} && \
+          git stash && \
           git pull && \
           chmod +x ${{ env.script }} && \
           ${{ env.script }} path=${{ env.fullPath }} env=${{ env.environment }};
