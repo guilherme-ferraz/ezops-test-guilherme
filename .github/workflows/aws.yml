@@ -15,7 +15,7 @@ jobs:
       - name: Create CodeDeploy Deployment
         id: deploy
         env:
-          AWS_USER: ${{ secrets.AWS_USER }}
+          AWS_USER: ubuntu
           AWS_HOST: ${{ secrets.AWS_HOST }}
           AWS_SSH_PEM: ${{ secrets.AWS_SSH_PEM }}
         run: |
