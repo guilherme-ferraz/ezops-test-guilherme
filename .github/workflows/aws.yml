@@ -23,4 +23,4 @@ jobs:
           ./scripts/workflowAWS.sh \
           cert='${{ env.AWS_SSH_PEM }}' \
           user='${{ env.AWS_USER }}' \
-          host='${{ env.AWS_HOST }}'
+          host='${{ secrets.AWS_HOST }}'
