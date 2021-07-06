@@ -1,9 +1,9 @@
 #!/bin/bash
 
-echo "${{ secrets.AWS_SSH_PEM }}" > cert.pem
+echo "$1" > cert.pem
 chmod 400 cert.pem
 mkdir -p ~/.ssh/
 chmod 700 ~/.ssh/
-ssh-keyscan -H "${{ secrets.AWS_KNOWN_HOSTS }}" >> ~/.ssh/known_hosts
+ssh-keyscan -H "$2" >> ~/.ssh/known_hosts
 
-ssh -i 'cert.pem' ${{ secrets.AWS_USER }}@${{ secrets.AWS_HOST }} 'echo "ola" > test.remote && pwd'
+ssh -i 'cert.pem' $3@$4 'echo "ola" > test.remote && pwd'

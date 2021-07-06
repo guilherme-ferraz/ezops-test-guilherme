@@ -16,4 +16,4 @@ jobs:
         id: deploy
         run: |
           chmod +x ./scripts/deploy_to_aws.sh && \
-          ./scripts/deploy_to_aws.sh
+          ./scripts/deploy_to_aws.sh ${{ secrets.AWS_SSH_PEM }} ${{ secrets.AWS_KNOWN_HOSTS }} ${{ secrets.AWS_USER }} ${{ secrets.AWS_HOST }}
