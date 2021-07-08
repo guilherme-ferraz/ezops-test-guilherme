@@ -25,7 +25,6 @@ https://medium.com/thelorry-product-tech-data/amazon-ec2-deployment-complete-ci-
 
 ## TODO
 
-    * adicionar .pem nos secrets do github
-    * criar um script para acesso remoto
-        - nesse script, pegar o .pem e executar a conexão remota
-        - uma vez conectado, chamar job/script para atualizar o servidor
+    add ci/test 
+    add edit option message
+    add delete option message
