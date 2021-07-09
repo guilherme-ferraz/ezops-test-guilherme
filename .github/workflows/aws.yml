@@ -28,7 +28,6 @@ jobs:
           npm test
         continue-on-error: true
       #step 4
-        check result test.log
       - name: Check
         shell: bash
         run: |
