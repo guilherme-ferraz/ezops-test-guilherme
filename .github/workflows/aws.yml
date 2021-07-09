@@ -31,7 +31,7 @@ jobs:
       - name: Check
         shell: bash
         run: |
-          result=$(cat test.log | grep 'false' )
+          result=$(cat test.log | grep -Po 'failed' )
           echo "testing $result"
           if [ -z "$result" ]; then 
               echo "FAIL"
