@@ -15,10 +15,10 @@ jobs:
       - name: Test
         shell: bash
         env:
-          DB_HOST: ${{ DB_HOST }}
-          DB_NAME: ${{ DB_NAME }}
-          DB_USER: ${{ DB_USER }}
-          DB_PASS: ${{ DB_PASS }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
         run: |
           result=$(npm test | grep -Po '"success":false')
           if [ -z "$result" ]; then 
