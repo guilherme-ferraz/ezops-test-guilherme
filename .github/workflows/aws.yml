@@ -25,14 +25,13 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
         run: |
-          npm test
+          npm test && testing=ola
         continue-on-error: true
       #step 4
       - name: Check
         shell: bash
-        run: |
-          result=$(cat test.log | grep -Po 'failed' )
-          echo "testing $result"
+        run: | 
+          echo "testing $testing"
           if [ -z "$result" ]; then 
               echo "FAIL"
               echo "FAIL" > result.log
