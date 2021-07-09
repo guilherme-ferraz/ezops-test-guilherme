@@ -11,7 +11,7 @@ describe('message endpoints', () => {
 
     it('get messages especific user', async () => {
         const postId = 'guilherme';
-        const res = await request('localhost:3000').get(`/messages/guilherme`);
+        const res = await request('localhost:3000').get(`/message/guilherme`);
         expect(res.statusCode).toEqual(200);
     });
 })
