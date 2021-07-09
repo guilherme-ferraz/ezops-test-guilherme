@@ -23,12 +23,25 @@ jobs:
           npm install && \
           result=$(npm test &>1 && cat test.log | grep -Po '"success":false')
           if [ -z "$result" ]; then 
-              echo "Tests OK"
+              echo "OK" > result.log
               exit 0
           else
-              echo "Tests FAIL"
+              echo "FAIL" > result.log
               exit 1
           fi 
+        continue-on-error: true
+      - name: Check
+        shell: bash
+        # if: steps.test.outcome != 'Tests OK'
+        # run: exit 1
+        run: |
+          check=$(cat result.log)
+          if [ "$check" = "OK" ]; then 
+            exit 0
+          else
+            echo "TESTS FAILURE"
+            exit 1
+          fi
   CD:
     needs: [CI]
     if: github.ref == 'refs/heads/main'
