@@ -17,8 +17,6 @@ jobs:
         shell: bash
         run: npm install
       #step 3
-        npm test
-        permitir com failure
       - name: npm test
         shell: bash
         env:
