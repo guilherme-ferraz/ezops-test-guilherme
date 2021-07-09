@@ -33,7 +33,7 @@ jobs:
         run: | 
           test=$(cat test.log)
           echo "test: $test"
-          result=$(cat result.log)
+          result=$(grep -Po 'failed' test.log)
           echo "result: $result"
           if [ -z "$result" ]; then 
               echo "OK"
