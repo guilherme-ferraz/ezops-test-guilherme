@@ -1,0 +1,30 @@
+
+> ezops-test-guilherme@1.0.0 test
+> jest --forceExit --json --outputFile=test.log
+
+FAIL tests/messages.test.js
+  message endpoints
+    ✕ get messages (14 ms)
+    ✓ get messages especific user (165 ms)
+
+  ● message endpoints › get messages
+
+    listen EADDRINUSE: address already in use :::3000
+
+      74 |
+      75 | //start server
+    > 76 | var server = http.listen(3000, () => {
+         |                   ^
+      77 |     console.log('server is running on port', server.address().port);
+      78 | });
+
+      at Object.<anonymous> (server.js:76:19)
+      at Object.<anonymous> (tests/messages.test.js:2:13)
+
+Test Suites: 1 failed, 1 total
+Tests:       1 failed, 1 passed, 2 total
+Snapshots:   0 total
+Time:        0.97 s, estimated 1 s
+Ran all test suites.
+Test results written to: test.log
+Force exiting Jest: Have you considered using `--detectOpenHandles` to detect async operations that kept running after all tests finished?
