@@ -34,14 +34,12 @@ jobs:
           sleep 10
           echo "result:"
           cat result.log
-          echo "test:"
-          cat test.log
-          FILE=test.log
+          FILE=result.log
           if [[ -f "$FILE" ]]; then
             echo "arquivo existe"
-            grep -Po 'failed' $FILE > result.log
+            result=$(cat $FILE)
+            echo "result inside if: $result"
             echo "ola mundo"
-            echo "result: $(cat result.log)"
             if [[ -z "$result" ]]; then 
                 echo "OK"
             else
