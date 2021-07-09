@@ -31,7 +31,10 @@ jobs:
       - name: Check
         shell: bash
         run: | 
+          test=$(cat test.log)
+          echo "test: $test"
           result=$(cat result.log)
+          echo "result: $result"
           if [ -z "$result" ]; then 
               echo "OK"
               exit 1
