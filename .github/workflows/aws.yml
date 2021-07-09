@@ -11,8 +11,15 @@ jobs:
     steps:
       # Step 1
       - uses: actions/checkout@v2
-      # Step 2
-      - name: Test
+      #step 2
+      - name: npm install
+        id: deploy
+        shell: bash
+        run: npm install
+      #step 3
+        npm test
+        permitir com failure
+      - name: npm test
         shell: bash
         env:
           DB_HOST: ${{ secrets.DB_HOST }}
@@ -20,8 +27,13 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
         run: |
-          npm install && \
-          npm test && \
+          npm test
+        continue-on-error: true
+      #step 4
+        check result test.log
+      - name: Check
+        shell: bash
+        run: |
           result=$(grep -Po '"success":false' test.log)
           if [ -z "$result" ]; then 
               echo "OK" > result.log
@@ -30,19 +42,6 @@ jobs:
               echo "FAIL" > result.log
               exit 1
           fi 
-        continue-on-error: true
-      - name: Check
-        shell: bash
-        # if: steps.test.outcome != 'Tests OK'
-        # run: exit 1
-        run: |
-          check=$(cat result.log)
-          if [ "$check" = "OK" ]; then 
-            exit 0
-          else
-            echo "TESTS FAILURE"
-            exit 1
-          fi
   CD:
     needs: [CI]
     if: github.ref == 'refs/heads/main'
