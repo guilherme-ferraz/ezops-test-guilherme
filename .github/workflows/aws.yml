@@ -31,9 +31,10 @@ jobs:
       - name: Check
         shell: bash
         run: |
-          echo "checking" && \
-          result=$(grep -Po '"success":false' test.log) && \
-          echo "result: $(grep -o '"success":false' test.log)" && \
+          echo "checking"
+          result=$(grep -Po '"success":false' test.log)
+          echo "result: $(grep -o '"success":false' test.log)"
+          echo "testing"
           if [ -z "$result" ]; then 
               echo "FAIL"
               echo "FAIL" > result.log
