@@ -35,6 +35,7 @@ jobs:
           if [[ -f "$FILE" ]]; then
             echo "arquivo existe"
             result=$(cat $FILE | grep -Po 'failed')
+            echo "ola mundo"
             echo "result: $result"
             if [[ -z "$result" ]]; then 
                 echo "OK"
