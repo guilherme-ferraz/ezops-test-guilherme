@@ -35,7 +35,7 @@ jobs:
           FILE=test.log
           if [[ -f "$FILE" ]]; then
             echo "arquivo existe"
-            result=$(cat $FILE | grep -Po 'failed')
+            result=$(cat $FILE)
             echo "ola mundo"
             echo "result: $result"
             if [[ -z "$result" ]]; then 
