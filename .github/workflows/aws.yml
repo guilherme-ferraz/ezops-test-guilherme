@@ -37,7 +37,7 @@ jobs:
             sudo apt-get update
             sudo apt-get install -y grep
             echo "ola mundo" | grep -Po 'mundo'
-            cat $FILE | grep -Po 'failed'
+            echo "result: $(cat $FILE | grep -Po 'failed')"
 
             result=$(grep -Po 'failed' $FILE)
             if [ -z "$result" ]; then 
