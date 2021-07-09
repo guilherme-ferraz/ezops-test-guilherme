@@ -25,7 +25,7 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
         run: |
-          npm test && echo "$(grep -Po test.log)" > result.log
+          npm test && echo "$(grep -Po 'failed' test.log)" > result.log
         continue-on-error: true
       #step 4
       - name: Check
