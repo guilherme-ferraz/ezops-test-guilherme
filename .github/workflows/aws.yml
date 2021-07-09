@@ -24,6 +24,7 @@ jobs:
           result=$(npm test &>1 && cat test.log | grep -Po '"success":false')
           if [ -z "$result" ]; then 
               echo "Tests OK"
+              exit 0
           else
               echo "Tests FAIL"
               exit 1
