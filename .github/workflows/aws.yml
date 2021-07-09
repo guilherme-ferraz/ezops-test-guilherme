@@ -31,8 +31,8 @@ jobs:
       - name: Check
         shell: bash
         run: |
-          result=$(grep -Po '"success":false' test.log)
-          echo "testing"
+          result=test
+          echo "testing $result"
           if [ -z "$result" ]; then 
               echo "FAIL"
               echo "FAIL" > result.log
