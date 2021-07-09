@@ -21,7 +21,8 @@ jobs:
           DB_PASS: ${{ secrets.DB_PASS }}
         run: |
           npm install && \
-          result=$(npm test | grep -Po '"success":false')
+          npm test && \
+          result=$(grep -Po '"success":false' test.log)
           if [ -z "$result" ]; then 
               echo "OK" > result.log
               exit 0
