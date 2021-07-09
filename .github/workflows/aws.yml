@@ -34,6 +34,7 @@ jobs:
           echo "checking" && \
           cat test.log && \
           result=$(grep -Po '"success":false' test.log)
+          echo $result
           if [ -z "$result" ]; then 
               echo "FAIL"
               echo "FAIL" > result.log
