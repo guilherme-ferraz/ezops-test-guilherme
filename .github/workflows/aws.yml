@@ -33,10 +33,14 @@ jobs:
         run: |
           result=$(grep -Po '"success":false' test.log)
           if [ -z "$result" ]; then 
+              echo "OK"
               echo "OK" > result.log
+              cat result.log
               exit 0
           else
+              echo "FAIL"
               echo "FAIL" > result.log
+              cat result.log
               exit 1
           fi 
   CD:
