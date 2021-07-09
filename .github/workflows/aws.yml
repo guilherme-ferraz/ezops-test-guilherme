@@ -31,8 +31,9 @@ jobs:
       - name: Check
         shell: bash
         run: | 
-          if [ -f "test.log" ]; then
-            result=$(grep -Po 'failed' test.log)
+          FILE=test.log
+          if [ -f "$FILE" ]; then
+            result=$(grep -Po 'failed' $FILE)
             if [ -z "$result" ]; then 
                 echo "OK"
                 exit 0
