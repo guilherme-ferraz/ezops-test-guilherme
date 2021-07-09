@@ -31,6 +31,8 @@ jobs:
       - name: Check
         shell: bash
         run: |
+          echo "checking" && \
+          cat test.log && \
           result=$(grep -Po '"success":false' test.log)
           if [ -z "$result" ]; then 
               echo "OK"
