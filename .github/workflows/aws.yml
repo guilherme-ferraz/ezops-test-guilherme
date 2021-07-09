@@ -32,6 +32,7 @@ jobs:
         shell: bash
         run: | 
           sleep 20
+          cat result.log
           FILE=test.log
           if [[ -f "$FILE" ]]; then
             echo "arquivo existe"
