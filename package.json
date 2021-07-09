@@ -4,7 +4,7 @@
   "description": "ezops test processo seletivo",
   "main": "index.js",
   "scripts": {
-    "test": "jest --forceExit"
+    "test": "jest --forceExit --json"
   },
   "repository": {
     "type": "git",

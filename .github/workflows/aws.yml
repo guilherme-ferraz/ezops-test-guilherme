@@ -12,34 +12,53 @@ jobs:
       # Step 1
       - uses: actions/checkout@v2
       # Step 2
-      - name: Set up Python 3.7
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
-      # Step 3
-      - name: Install dependencies
-        run: pip install -r requirements.txt
-      # Step 4
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id:${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key:${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ap-southeast-1
-      # Step 5
-      - name: Build Application and Run unit Test
-        run: python app.py & pytest
+      - name: Test
+        shell: bash
+        env:
+          DB_HOST: ${{ DB_HOST }}
+          DB_NAME: ${{ DB_NAME }}
+          DB_USER: ${{ DB_USER }}
+          DB_PASS: ${{ DB_PASS }}
+        run: |
+          result=$(npm test | grep -Po '"success":false')
+          if [ -z "$result" ]; then 
+              echo "Tests OK"
+          else
+              echo "Tests FAIL"
+              exit 1
+          fi 
   CD:
-    needs: [continuous-integration]
+    needs: [CI]
     if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Install SSH key
-        uses: guilherme-ferraz/ssh-key-action@v2
-        with:
-          key: ${{ secrets.SSH_AWS_EZOPS_TEST_GUILHERME }}
-          name: id_rsa
-          known_hosts: ${{ secrets.KNOWN_HOSTS_AWS_EZOPS_TEST_GUILHERME }}
-      - name: rsync over ssh
-        run: ./scripts/deploy_to_aws.sh
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Deployment
+        id: deploy
+        shell: bash
+        env:
+          parentPath: '/home/ubuntu/'
+          app: 'ezops-test-guilherme'
+          fullPath: '/home/ubuntu/ezops-test-guilherme/'
+          script: '/home/ubuntu/ezops-test-guilherme/scripts/rollingUpdate.sh'
+          environment: '/home/ubuntu/environments/.env.ezops.production'
+          gitProject: git@github.com:guilherme-ferraz/ezops-test-guilherme.git
+        run: |
+          echo "${{ secrets.AWS_SSH_PEM }}" > cert.pem && \
+          chmod 400 cert.pem && \
+          mkdir -p ~/.ssh/ && \
+          chmod 700 ~/.ssh/ && \
+          ssh-keyscan -H "${{ secrets.AWS_HOST }}" >> ~/.ssh/known_hosts && \
+          ssh -i 'cert.pem' ubuntu@${{ secrets.AWS_HOST }} \
+          "if [ -d "${{ env.fullPath }}" ]; then
+          cd ${{ env.fullPath }} && \
+          git stash && \
+          git pull && \
+          chmod +x ${{ env.script }} && \
+          ${{ env.script }} path=${{ env.fullPath }} env=${{ env.environment }};
+          else 
+          cd ${{ env.parentPath }} && \
+          git clone ${{ env.gitProject }} && \
+          chmod +x ${{ env.script }} && \
+          ${{ env.script }} path=${{ env.fullPath }} env=${{ env.environment }}; fi"
