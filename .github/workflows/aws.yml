@@ -32,7 +32,10 @@ jobs:
         shell: bash
         run: | 
           FILE=test.log
-          if [ -f "$FILE" ]; then
+          if [[ -f "$FILE" ]]; then
+            echo "arquivo existe"
+            cat $FILE
+
             result=$(grep -Po 'failed' $FILE)
             if [ -z "$result" ]; then 
                 echo "OK"
@@ -42,7 +45,7 @@ jobs:
                 exit 1
             fi 
           else 
-            echo "OK"
+            echo "arquivo nao existe"
             exit 0
           fi
   CD:
