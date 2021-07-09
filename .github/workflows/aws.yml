@@ -32,7 +32,6 @@ jobs:
         shell: bash
         run: |
           echo "checking" && \
-          cat test.log && \
           result=$(grep -Po '"success":false' test.log) && \
           echo "result: $(grep -o '"success":false' test.log)" && \
           if [ -z "$result" ]; then 
