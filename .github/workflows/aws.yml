@@ -31,16 +31,12 @@ jobs:
       - name: Check
         shell: bash
         run: | 
-          echo "testing $(cat result.log)"
+          result=$(cat result.log)
           if [ -z "$result" ]; then 
-              echo "FAIL"
-              echo "FAIL" > result.log
-              cat result.log
+              echo "OK"
               exit 1
           else
-              echo "OK"
-              echo "OK" > result.log
-              cat result.log
+              echo "FAIL"
               exit 0
           fi 
   CD:
