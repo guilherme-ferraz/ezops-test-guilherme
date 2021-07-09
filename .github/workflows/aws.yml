@@ -34,7 +34,8 @@ jobs:
           FILE=test.log
           if [[ -f "$FILE" ]]; then
             echo "arquivo existe"
-            apt-get install -y grep
+            sudo apt-get update
+            sudo apt-get install -y grep
             echo "ola mundo" | grep 'mundo'
             cat $FILE | grep -Po 'failed'
 
