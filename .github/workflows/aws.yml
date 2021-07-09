@@ -40,7 +40,7 @@ jobs:
             result=$(cat $FILE)
             echo "result inside if: $result"
             echo "ola mundo"
-            if [[ -z "$result" ]]; then 
+            if [ -z "$result" ]; then 
                 echo "FAIL"
                 exit 1
             else
