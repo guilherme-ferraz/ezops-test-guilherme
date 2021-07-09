@@ -36,7 +36,7 @@ jobs:
             echo "arquivo existe"
             sudo apt-get update
             sudo apt-get install -y grep
-            echo "ola mundo" | grep 'mundo'
+            echo "ola mundo" | grep -Po 'mundo'
             cat $FILE | grep -Po 'failed'
 
             result=$(grep -Po 'failed' $FILE)
