@@ -31,7 +31,7 @@ jobs:
       - name: Check
         shell: bash
         with:
-          wait-interval: 30
+          time: '30s'
         run: | 
           FILE=test.log
           if [[ -f "$FILE" ]]; then
