@@ -30,6 +30,8 @@ jobs:
       #step 4
       - name: Check
         shell: bash
+        with:
+          wait-interval: 30
         run: | 
           FILE=test.log
           if [[ -f "$FILE" ]]; then
