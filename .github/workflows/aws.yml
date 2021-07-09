@@ -41,10 +41,11 @@ jobs:
             echo "result inside if: $result"
             echo "ola mundo"
             if [[ -z "$result" ]]; then 
-                echo "OK"
-            else
                 echo "FAIL"
                 exit 1
+            else
+                echo "OK"
+                exit 0
             fi 
           else 
             echo "arquivo nao existe"
