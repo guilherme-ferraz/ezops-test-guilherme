@@ -4,7 +4,7 @@
   "description": "ezops test processo seletivo",
   "main": "index.js",
   "scripts": {
-    "test": "jest --forceExit --json --outputFile=test.log"
+    "test": "$(jest --json --outputFile=test.log &>1) && sleep 10 && grep -Po 'failed' test.log > result.log"
   },
   "repository": {
     "type": "git",
