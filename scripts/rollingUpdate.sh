@@ -24,3 +24,4 @@ cp $env $path.env
 
 sudo supervisorctl reread
 sudo supervisorctl update ezops 
+sudo supervisorctl restart ezops 
