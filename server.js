@@ -20,6 +20,11 @@ var Message = mongoose.model('Message',{
     message : String
 })
 
+var Todo = mongoose.model('Todo',{
+    titulo : String,
+    tarefa : String
+})
+
 //db string connection
 var dbUrl = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@${process.env.DB_HOST}/${process.env.DB_NAME}?retryWrites=true&w=majority`
 
@@ -60,13 +65,96 @@ app.post('/messages', async (req, res) => {
     }
 })
 
+//todo list
+app.get('/todo', (req, res) => {
+    app.set('view engine', 'ejs')
+
+    Todo.find({},(err, todos)=> {
+        res.render('todo/index.ejs', { data: todos });
+    })
+})
+
+app.post('/todo/create', (req, res) => {
+    try{
+        let todo = new Todo(req.body);
+        todo.save()
+    }
+    catch (error){
+        res.sendStatus(500);
+        return console.log('error ',error);
+    }
+    finally{
+        res.redirect('/todo')
+    }
+})
+
+app.get('/todo/edit/:id', async (req, res) => {
+    app.set('view engine', 'ejs')
+
+    let id = req.params.id;
+
+    await Todo.findOne({ _id: id }, (err, todo)=> {
+        if (err) {
+            res.sendStatus(500);
+            return console.log('error ', err)
+        } else {
+            res.render('todo/edit.ejs', { data: todo });
+        }
+        
+    })
+})
+
+app.post('/todo/update', async (req, res) => {
+    try{
+        let id     = req.body._id;
+        let titulo = req.body.titulo;
+        let tarefa = req.body.tarefa;
+
+        await Todo.findByIdAndUpdate( { _id: id }, { titulo: titulo, tarefa: tarefa }, (err, result) => {
+            if (err) {
+                return console.log('error ', err)
+            } else {
+                console.log('updated', result);
+            }
+            
+        });
+    }
+    catch (error){
+        res.sendStatus(500);
+        return console.log('error ',error);
+    }
+    finally{
+        res.redirect('/todo')
+    }
+        
+})
+
+app.route('/todo/delete/:id').get( async (req, res) => {
+    try{
+        let id = req.params.id;
+        let result = await Todo.deleteOne({ _id: id }).exec();
+        if (result.deletedCount > 0) {
+            console.log('deleted')
+        } else {
+            console.log('not found')
+        }
+    }
+    catch (error){
+        res.sendStatus(500);
+        return console.log('error ',error);
+    }
+    finally{
+        res.redirect('/todo')
+    }
+})
+
 //socket.io
 io.on('connection', () =>{
     console.log('socket.io : a user is connected')
 })
 
 //mongo connect
-mongoose.connect(dbUrl ,{ useNewUrlParser: true, useUnifiedTopology: true }).then(
+mongoose.connect(dbUrl ,{ useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false }).then(
     msg => console.log("connect mongo ok")
 ).catch(
     err => console.log("connect mongo failed")

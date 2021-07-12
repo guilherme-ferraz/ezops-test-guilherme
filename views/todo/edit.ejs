@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <title>TODO List</title>
+    </head>
+<body>
+
+    <h2>TODO List<h2>
+    <h4>Editar</h4>
+    <form action="/todo/update" method="POST">
+        <div>
+            <input type="text" placeholder="Título" name="titulo" value="<%= data.titulo %>">
+        </div>
+        <div>
+            <textarea placeholder="Tarefa" name="tarefa"><%= data.tarefa %></textarea>
+        </div>
+        <div>
+            <input type="hidden" name='_id' value="<%= data._id %>">
+            <button type="submit">Atualizar</button>
+        </div>
+    </form> 
+
+</body>
+</html>

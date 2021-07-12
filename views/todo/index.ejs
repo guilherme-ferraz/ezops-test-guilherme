@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <title>TODO List</title>
+    </head>
+<body>
+
+    <h2>TODO List<h2>
+    <h4>Adicionar</h4>
+    <form action="/todo/create" method="POST">
+        <div>
+            <input type="text" placeholder="Título" name="titulo">
+        </div>
+        <div>
+            <textarea placeholder="Tarefa" name="tarefa"></textarea>
+        </div>
+        <div>
+            <button type="submit">Criar</button>
+        </div>
+    </form> 
+
+
+    <div>
+        <h2>Tarefas:</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Título</th>
+                    <th>Tarefa</th>
+                    <th colspan=2>Opções</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% data.forEach(function(todo) { %>
+                    <tr>
+                        <td><%= todo.titulo %></td>
+                        <td><%= todo.tarefa %></td>
+                        <td>
+                            <a href="/todo/edit/<%= todo._id %>">Editar</a>
+                        </td>
+                        <td>
+                            <a href="/todo/delete/<%= todo._id %>">Excluir</a>
+                        </td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
