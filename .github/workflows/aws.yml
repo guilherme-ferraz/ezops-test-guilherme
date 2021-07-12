@@ -32,14 +32,9 @@ jobs:
         shell: bash
         run: | 
           sleep 10
-          echo "result:"
-          cat result.log
           FILE=result.log
           if [[ -f "$FILE" ]]; then
-            echo "arquivo existe"
             result=$(cat $FILE)
-            echo "result inside if: $result"
-            echo "ola mundo"
             if [ -z "$result" ]; then 
                 echo "OK"
                 exit 0
@@ -48,7 +43,7 @@ jobs:
                 exit 1
             fi 
           else 
-            echo "arquivo nao existe"
+            echo "Arquivo $FILE não encontrado"
             exit 0
           fi
   CD:
